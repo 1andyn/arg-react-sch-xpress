@@ -10,8 +10,9 @@
     "debug": "~2.6.9",
     "express": "^4.16.4",
     "http-errors": "^1.6.3",
-    "pug": "3.0.0",
-    "morgan": "~1.9.1"
+    "mongodb": "^3.5.9",
+    "morgan": "~1.9.1",
+    "pug": "3.0.0"
   },
   "description": "back end for arc-react-sch\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[g",
   "main": "app.js",
