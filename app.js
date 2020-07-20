@@ -1,5 +1,8 @@
 var createError = require('http-errors');
 var express = require('express');
+
+var cors = require('cors'); //Cross Origin
+
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -8,6 +11,7 @@ var cn = require('./auth');
 const mongodb = require('./mongo');
 const indexRouter = require('./routes/index');
 const campusRouter = require('./routes/campus');
+const termRouter = require('./routes/term');
 
 var app = express();
 
@@ -33,8 +37,24 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//cross original resource allow list logic
+var allowedOrigins = ['http://localhost:3000',
+                      'http://localhost:3040'];
+app.use(cors({
+  origin: function(origin, callback){
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){
+      var msg = 'Unauthorized origin, cannot respond.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  }
+}));
+
+
 app.use('/', indexRouter);
 app.use('/campus', campusRouter);
+app.use('/term', termRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
