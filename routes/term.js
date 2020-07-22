@@ -13,7 +13,7 @@ router.get('/:sid', function (req, res, next) {
 
     //logging
     var logging = mongodb.get().collection('requests');
-    var log = {strRequest : "term",  strParameter : "school_id", dtmTimestamp : new Date().getTime()};
+    var log = {strRequest : "term",  strParameter : "school_id: " + school_id, dtmTimestamp : new Date().getTime()};
     logging.insertOne(log, function(err, res) {
         if (err)
             console.log(err) ;

@@ -13,7 +13,6 @@ router.get('/list/', function (req, res, next) {
 
     //logging
     var logging = mongodb.get().collection('requests');
-    var timestamp = Date().getTime()
     var log = {strRequest : "campus", strParameter : "", dtmTimestamp : new Date().getTime()};
     logging.insertOne(log, function(err, res) {
             if (err)
