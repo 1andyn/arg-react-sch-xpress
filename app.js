@@ -12,6 +12,7 @@ const mongodb = require('./mongo');
 const indexRouter = require('./routes/index');
 const campusRouter = require('./routes/campus');
 const termRouter = require('./routes/term');
+const subRouter = require('./routes/subs');
 
 var app = express();
 
@@ -55,6 +56,7 @@ app.use(cors({
 app.use('/', indexRouter);
 app.use('/campus', campusRouter);
 app.use('/term', termRouter);
+app.use('/subs', subRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
