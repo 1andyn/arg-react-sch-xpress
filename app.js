@@ -39,6 +39,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/*
 //cross original resource allow list logic
 var allowedOrigins = ['http://localhost:3000',
                       'http://localhost:3040'];
@@ -52,7 +53,9 @@ app.use(cors({
     return callback(null, true);
   }
 }));
+*/
 
+app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/campus', campusRouter);
