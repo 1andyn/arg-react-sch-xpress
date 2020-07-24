@@ -21,9 +21,9 @@ const crsRouter = require('./routes/courses');
 var app = express();
 
 // Certificate - Note that this was achieved using CertBot on a Debian VM
-const pk = fs.readFileSync('/etc/letsencrypt/live/' + cn.cn_d + '/fullchain.pem', 'utf8');
-const cert = fs.readFileSync('/etc/letsencrypt/live/' + cn.cn_d + '/fullchain.pem', 'utf8');
-const ca = fs.readFileSync('/etc/letsencrypt/live/' + cn.cn_d + '/fullchain.pem', 'utf8');
+const pk = fs.readFileSync("/etc/letsencrypt/live/" + cn.cn_d + "/fullchain.pem", 'utf8');
+const cert = fs.readFileSync("/etc/letsencrypt/live/" + cn.cn_d + "/fullchain.pem", 'utf8');
+const ca = fs.readFileSync("/etc/letsencrypt/live/" + cn.cn_d + "/fullchain.pem", 'utf8');
 
 const credentials = {
 	key: pk,
