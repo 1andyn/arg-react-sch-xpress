@@ -4,13 +4,13 @@ const http = require('http');
 const https = require('https');
 const fs = require('fs');
 
-var cors = require('cors'); //Cross Origin
+const cors = require('cors'); //Cross Origin
 
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var cn = require('./auth');
+const cn = require('./auth');
 const mongodb = require('./mongo');
 const indexRouter = require('./routes/index');
 const campusRouter = require('./routes/campus');
@@ -21,14 +21,14 @@ const crsRouter = require('./routes/courses');
 var app = express();
 
 // Certificate - Note that this was achieved using CertBot on a Debian VM
-const pk = fs.readFileSync("/etc/letsencrypt/live/" + cn.cn_d + "/fullchain.pem", 'utf8');
-const cert = fs.readFileSync("/etc/letsencrypt/live/" + cn.cn_d + "/fullchain.pem", 'utf8');
-const ca = fs.readFileSync("/etc/letsencrypt/live/" + cn.cn_d + "/fullchain.pem", 'utf8');
+const pk = fs.readFileSync("/etc/letsencrypt/live/" + cn.cn_d + "/privkey.pem");
+const crt = fs.readFileSync("/etc/letsencrypt/live/" + cn.cn_d + "/fullchain.pem");
+const cat = fs.readFileSync("/etc/letsencrypt/live/" + cn.cn_d + "/chain.pem");
 
 const credentials = {
 	key: pk,
-	cert: cert,
-	ca: ca
+	cert: crt,
+	ca: cat
 };
 
 app.use((req, res) => {
