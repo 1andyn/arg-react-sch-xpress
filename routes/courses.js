@@ -3,7 +3,7 @@ var router = express.Router();
 
 var mongodb = require('../mongo');
 
-/* GET Subject List */
+/* GET Course List */
 router.get('/:sid/:tid/:jid', function (req, res, next) {
     var collection = mongodb.get().collection('courses');
     var school_id = req.params.sid;
