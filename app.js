@@ -17,6 +17,26 @@ const crsRouter = require('./routes/courses');
 
 var app = express();
 
+// Certificate - Note that this was achieved using CertBot on a Debian VM
+const pk = fs.readFileSync('/etc/letsencrypt/live/' + cn.cn_d + '/fullchain.pem', 'utf8');
+const cert = fs.readFileSync('/etc/letsencrypt/live/' + cn.cn_d + '/fullchain.pem', 'utf8');
+const ca = fs.readFileSync('/etc/letsencrypt/live/' + cn.cn_d + '/fullchain.pem', 'utf8');
+
+const credentials = {
+	key: pk,
+	cert: cert,
+	ca: ca
+};
+
+app.use((req, res) => {
+	res.send('Hello there !');
+});
+
+// Starting both http & https servers
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(credentials, app);
+
+
 var cnn_str = "mongodb+srv://" + cn.cn_u + ":" + cn.cn_p + "@" + cn.cn_s +
   "/arg_react_sch?authSource=admin&retryWrites=true&w=majority";
 
@@ -33,7 +53,7 @@ mongodb.connect(cnn_str, function (err) {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-app.use(logger('dev'));
+//app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -77,6 +97,15 @@ app.use(function (err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+//list on both http/https
+httpServer.listen(80, () => {
+	console.log('HTTP Server running on port 80');
+});
+
+httpsServer.listen(443, () => {
+	console.log('HTTPS Server running on port 443');
 });
 
 module.exports = app;
