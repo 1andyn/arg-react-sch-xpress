@@ -25,7 +25,7 @@ const pk = fs.readFileSync("/etc/letsencrypt/live/" + cn.cn_d + "/privkey.pem");
 const crt = fs.readFileSync("/etc/letsencrypt/live/" + cn.cn_d + "/fullchain.pem");
 const cat = fs.readFileSync("/etc/letsencrypt/live/" + cn.cn_d + "/chain.pem");
 
-const credentials = {
+const creds = {
 	key: pk,
 	cert: crt,
 	ca: cat
@@ -34,11 +34,6 @@ const credentials = {
 app.use((req, res) => {
 	res.send('Hello there !');
 });
-
-// Starting both http & https servers
-const httpServer = http.createServer(app);
-const httpsServer = https.createServer(credentials, app);
-
 
 var cnn_str = "mongodb+srv://" + cn.cn_u + ":" + cn.cn_p + "@" + cn.cn_s +
   "/arg_react_sch?authSource=admin&retryWrites=true&w=majority";
@@ -103,12 +98,10 @@ app.use(function (err, req, res, next) {
 });
 
 //list on both http/https
-httpServer.listen(80, () => {
-	console.log('HTTP Server running on port 80');
-});
+http.createServer(app).listen(80);
+console.log('HTTP Server running on port 80');
 
-httpsServer.listen(443, () => {
-	console.log('HTTPS Server running on port 443');
-});
+httpscreateServer(creds, app).listen(443);
+console.log('HTTP Server running on port 443');
 
 module.exports = app;
