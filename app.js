@@ -31,10 +31,6 @@ const creds = {
 	ca: cat
 };
 
-app.use((req, res) => {
-	res.send('Hello there !');
-});
-
 var cnn_str = "mongodb+srv://" + cn.cn_u + ":" + cn.cn_p + "@" + cn.cn_s +
   "/arg_react_sch?authSource=admin&retryWrites=true&w=majority";
 
@@ -101,7 +97,7 @@ app.use(function (err, req, res, next) {
 http.createServer(app).listen(80);
 console.log('HTTP Server running on port 80');
 
-httpscreateServer(creds, app).listen(443);
+https.createServer(creds, app).listen(443);
 console.log('HTTP Server running on port 443');
 
 module.exports = app;
