@@ -3,6 +3,7 @@ const express = require('express');
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
+const helmet = require('helmet')
 
 const cors = require('cors'); //Cross Origin
 
@@ -52,6 +53,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(helmet())
 
 /*
 //cross original resource allow list logic
